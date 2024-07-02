@@ -5,6 +5,8 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import { createElement } from "react";
+import { Outlet } from "react-router-dom";
+import { AdminSideBar } from "../../../routes/admin.routes";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -47,7 +49,7 @@ export const MainLayout = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["4"]}
-          items={items}
+          items={AdminSideBar}
         />
       </Sider>
       <Layout>
@@ -59,7 +61,7 @@ export const MainLayout = () => {
               minHeight: 360,
             }}
           >
-            The main content should be like this
+            <Outlet />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
