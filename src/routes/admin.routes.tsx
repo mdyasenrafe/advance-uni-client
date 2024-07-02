@@ -5,7 +5,6 @@ import {
   CreateStudent,
   Dashboard,
 } from "../pages/admin";
-import { MenuItemType } from "antd/es/menu/interface";
 import { NavLink } from "react-router-dom";
 
 type TRoute = {
