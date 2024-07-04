@@ -5,6 +5,7 @@ import { adminPaths } from "../../../routes/admin.routes";
 const { Sider } = Layout;
 
 export const Sidebar = () => {
+  const role = "admin";
   return (
     <Sider
       breakpoint="lg"
