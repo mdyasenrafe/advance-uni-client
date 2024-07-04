@@ -1,14 +1,4 @@
-type TRoute = {
-  path: string;
-  element: React.ReactNode;
-};
-
-type TAdminPath = {
-  name: string;
-  path?: string;
-  element?: React.ReactNode;
-  children?: TAdminPath[];
-};
+import { TAdminPath, TRoute } from "../types";
 
 export const routesGenerator = (adminPaths: TAdminPath[]) => {
   return adminPaths.reduce((acc: TRoute[], item) => {
