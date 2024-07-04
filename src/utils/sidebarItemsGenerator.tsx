@@ -9,7 +9,7 @@ export const sidebarItemsGenerator = (
     if (item.name && item.path) {
       acc.push({
         key: item.path,
-        label: <NavLink to={`/admin/${item.path}`}>{item.name}</NavLink>,
+        label: <NavLink to={`/${role}/${item.path}`}>{item.name}</NavLink>,
       });
     }
     if (item.children) {
