@@ -7,17 +7,13 @@ import {
 } from "../pages/admin";
 import { NavLink } from "react-router-dom";
 
-type TRoute = {
-  path: string;
-  element: React.ReactNode;
-};
 type TAdminSideBar = {
   key: string;
   label: React.ReactNode;
   children?: TAdminSideBar[];
 };
 
-const adminPaths = [
+export const adminPaths = [
   {
     name: "Dashboard",
     path: "dashboard",
@@ -44,24 +40,6 @@ const adminPaths = [
     ],
   },
 ];
-
-export const AdminRoutes = adminPaths.reduce((acc: TRoute[], item) => {
-  if (item.name && item.path) {
-    acc.push({
-      path: item.path,
-      element: item.element,
-    });
-  }
-  if (item.children) {
-    item.children.forEach((child) => {
-      acc.push({
-        path: child.path,
-        element: child.element,
-      });
-    });
-  }
-  return acc;
-}, []);
 
 export const AdminSideBar = adminPaths.reduce((acc: TAdminSideBar[], item) => {
   if (item.name && item.path) {
