@@ -4,6 +4,7 @@ import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { log } from "console";
 import { useAppDispatch } from "../../redux/hooks";
 import { setUsers } from "../../redux/features/auth/authSlice";
+import { verifyToken } from "../../utils/verifyToken";
 
 type FormValues = {
   id: string;
@@ -17,7 +18,9 @@ export const Login = () => {
   const dispatch = useAppDispatch();
   const onSubmit = handleSubmit(async (data) => {
     const res = await login(data).unwrap();
-    dispatch(setUsers({ user: {}, token: res.data.accessToken as string }));
+    const token = res.data.accessToken as string;
+    const user = verifyToken(token);
+    dispatch(setUsers({ user: user, token: token }));
   });
   return (
     <div>
