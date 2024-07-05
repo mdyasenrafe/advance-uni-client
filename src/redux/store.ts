@@ -13,19 +13,21 @@ import {
   REGISTER,
 } from "redux-persist";
 
+// Persist configuration for the auth slice
 const persistConfig = {
   key: "auth",
   storage,
 };
+
 const persistedAuthReducer = persistReducer(persistConfig, authSlice);
 
 export const store = configureStore({
   reducer: {
-    auth: authSlice,
-    [baseApi.reducerPath]: persistedAuthReducer,
+    auth: persistedAuthReducer,
+    [baseApi.reducerPath]: baseApi.reducer,
   },
-  middleware: (getDefaultMiddlewares) =>
-    getDefaultMiddlewares({
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
