@@ -5,13 +5,7 @@ import {
   CreateStudent,
   Dashboard,
 } from "../pages/admin";
-import { NavLink } from "react-router-dom";
-
-type TAdminSideBar = {
-  key: string;
-  label: React.ReactNode;
-  children?: TAdminSideBar[];
-};
+import { AcaemicSemester } from "../pages";
 
 export const adminPaths = [
   {
@@ -39,27 +33,14 @@ export const adminPaths = [
       },
     ],
   },
+  {
+    name: "Academic Management",
+    children: [
+      {
+        name: "Academic Semester",
+        path: "academic-semester",
+        element: <AcaemicSemester />,
+      },
+    ],
+  },
 ];
-
-export const AdminSideBar = adminPaths.reduce((acc: TAdminSideBar[], item) => {
-  if (item.name && item.path) {
-    acc.push({
-      key: item.path,
-      label: <NavLink to={`/admin/${item.path}`}>{item.name}</NavLink>,
-    });
-  }
-  if (item.children) {
-    acc.push({
-      key: item.name,
-      label: item.name,
-      children: item.children.map((child) => {
-        return {
-          key: child.path,
-          label: <NavLink to={`/admin/${child.path}`}>{child.name}</NavLink>,
-        };
-      }),
-    });
-  }
-
-  return acc;
-}, []);

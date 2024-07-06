@@ -4,7 +4,7 @@ import { Sidebar } from "../Sidebar";
 import { useAppDispatch } from "../../../redux/hooks";
 import { logout } from "../../../redux/features/auth/authSlice";
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 export const MainLayout = () => {
   const dispatch = useAppDispatch();
@@ -29,9 +29,6 @@ export const MainLayout = () => {
             <Outlet />
           </div>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
       </Layout>
     </Layout>
   );
