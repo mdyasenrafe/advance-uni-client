@@ -1,12 +1,13 @@
 import React from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
-import { log } from "console";
 import { useAppDispatch } from "../../redux/hooks";
 import { TUser, setUsers } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { Button, Row } from "antd";
+import { FormInput, FromWrapper } from "../../components/form";
 
 type FormValues = {
   id: string;
@@ -20,7 +21,7 @@ export const Login = () => {
   const dispatch = useAppDispatch();
   // hooks
   const navigate = useNavigate();
-  const onSubmit = handleSubmit(async (data: FieldValues) => {
+  const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Logging in");
     try {
       const res = await login(data).unwrap();
@@ -32,20 +33,14 @@ export const Login = () => {
     } catch (err) {
       toast.error("Something went wrong", { id: toastId, duration: 2000 });
     }
-  });
+  };
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <div>
-          <label>Id: </label>
-          <input placeholder="id" {...register("id")} />
-        </div>
-        <div>
-          <label>Password: </label>
-          <input placeholder="password" {...register("password")} />
-        </div>
-        <button type="submit">submit</button>
-      </form>
-    </div>
+    <Row justify="center" align="middle" style={{ height: "100vh" }}>
+      <FromWrapper onSubmit={onSubmit}>
+        <FormInput type="text" name="id" label="User Id" />
+        <FormInput type="text" name="password" label="Password" />
+        <Button htmlType="submit">Login</Button>
+      </FromWrapper>
+    </Row>
   );
 };
