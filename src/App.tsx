@@ -1,10 +1,10 @@
 import React from "react";
-import { MainLayout } from "./components/layout";
+import { MainLayout, ProtectedRoute } from "./components/layout";
 
 export const App = () => {
   return (
-    <div>
+    <ProtectedRoute>
       <MainLayout />
-    </div>
+    </ProtectedRoute>
   );
 };
