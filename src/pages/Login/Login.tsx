@@ -1,9 +1,9 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { log } from "console";
 import { useAppDispatch } from "../../redux/hooks";
-import { setUsers } from "../../redux/features/auth/authSlice";
+import { TUser, setUsers } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -20,12 +20,12 @@ export const Login = () => {
   const dispatch = useAppDispatch();
   // hooks
   const navigate = useNavigate();
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async (data: FieldValues) => {
     const toastId = toast.loading("Logging in");
     try {
       const res = await login(data).unwrap();
       const token = res.data.accessToken as string;
-      const user: any = verifyToken(token);
+      const user = verifyToken(token) as TUser;
       dispatch(setUsers({ user: user, token: token, duration: 2000 }));
       navigate(`/${user.role as string}/dashboard`);
       toast.success("Logged in", { id: toastId });
