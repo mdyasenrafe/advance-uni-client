@@ -17,7 +17,6 @@ type FormValues = {
 export const Login = () => {
   // dispatch
   const [login] = useLoginMutation();
-  const { register, handleSubmit } = useForm();
   const dispatch = useAppDispatch();
   // hooks
   const navigate = useNavigate();
