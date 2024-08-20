@@ -1,4 +1,4 @@
-import { Col, Form, Row } from "antd";
+import { Form } from "antd";
 import React, { ReactNode } from "react";
 import {
   Controller,
@@ -37,14 +37,10 @@ export const FromWrapper: React.FC<TForm> = ({
   };
 
   return (
-    <Row>
-      <Col span={12}>
-        <FormProvider {...methods}>
-          <Form layout="vertical" onFinish={methods.handleSubmit(handleSubmit)}>
-            {children}
-          </Form>
-        </FormProvider>
-      </Col>
-    </Row>
+    <FormProvider {...methods}>
+      <Form layout="vertical" onFinish={methods.handleSubmit(handleSubmit)}>
+        {children}
+      </Form>
+    </FormProvider>
   );
 };
