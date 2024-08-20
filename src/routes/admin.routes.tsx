@@ -1,11 +1,17 @@
-import React from "react";
 import {
   CreateAdmin,
   CreateFaculty,
   CreateStudent,
   Dashboard,
 } from "../pages/admin";
-import { AcaemicSemester } from "../pages";
+import {
+  AcademicDepartment,
+  AcademicFaculty,
+  CreateAcademicDepartment,
+  CreateAcademicFaculty,
+  AcaemicSemester,
+  CreateAcademicSemester,
+} from "../pages/admin/academicManagement";
 
 export const adminPaths = [
   {
@@ -37,9 +43,34 @@ export const adminPaths = [
     name: "Academic Management",
     children: [
       {
+        name: "Create A. Semester",
+        path: "create-academic-semester",
+        element: <CreateAcademicSemester />,
+      },
+      {
         name: "Academic Semester",
         path: "academic-semester",
         element: <AcaemicSemester />,
+      },
+      {
+        name: "Create A. Faculty",
+        path: "create-academic-faculty",
+        element: <CreateAcademicFaculty />,
+      },
+      {
+        name: "Academic Faculty",
+        path: "academic-faculty",
+        element: <AcademicFaculty />,
+      },
+      {
+        name: "Create A. Department",
+        path: "create-academic-department",
+        element: <CreateAcademicDepartment />,
+      },
+      {
+        name: "Academic Department",
+        path: "academic-department",
+        element: <AcademicDepartment />,
       },
     ],
   },

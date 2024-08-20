@@ -1,2 +1,2 @@
 export * from "./Login";
-export * from "./AcademicSemester";
+export * from "./admin/academicManagement/AcademicSemester";

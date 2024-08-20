@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetAllAcademicSemesterQuery } from "../../redux/features/academicSemster/academicSemesterApi";
+import { useGetAllAcademicSemesterQuery } from "../../../../redux/features/academicSemster/academicSemesterApi";
 
 export const AcaemicSemester = () => {
   const { data } = useGetAllAcademicSemesterQuery(undefined);
