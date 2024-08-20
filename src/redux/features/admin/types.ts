@@ -1,3 +1,5 @@
+import React from "react";
+
 export type TAcademicSemester = {
   _id: string;
   name: string;
@@ -7,4 +9,9 @@ export type TAcademicSemester = {
   endMonth: string;
   createdAt: string;
   updatedAt: string;
+};
+
+export type TQueryParams = {
+  name: string;
+  value: boolean | React.Key;
 };

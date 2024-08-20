@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGetAllAcademicSemesterQuery } from "../../../../redux/features/admin/academicManagement.api";
-import { Button, Table, TableColumnsType } from "antd";
-import { TAcademicSemester } from "../../../../redux/features/admin/types";
+import { Button, Table, TableColumnsType, TableProps } from "antd";
+import {
+  TAcademicSemester,
+  TQueryParams,
+} from "../../../../redux/features/admin/types";
 
 export type TTableData = Pick<
   TAcademicSemester,
   "name" | "_id" | "year" | "startMonth" | "endMonth"
 >;
 export const AcaemicSemester = () => {
-  const { data, isLoading } = useGetAllAcademicSemesterQuery(undefined);
+  // state
+  const [params, setParams] = useState<TQueryParams[]>([]);
+  const { data, isLoading, isFetching } =
+    useGetAllAcademicSemesterQuery(params);
+
   const columns: TableColumnsType<TTableData> = [
     {
       title: "Name",
@@ -50,6 +57,14 @@ export const AcaemicSemester = () => {
           text: "2027",
           value: "2027",
         },
+        {
+          text: "2028",
+          value: "2028",
+        },
+        {
+          text: "2029",
+          value: "2029",
+        },
       ],
     },
     {
@@ -74,7 +89,29 @@ export const AcaemicSemester = () => {
       },
     },
   ];
+  const onChange: TableProps<TTableData>["onChange"] = (
+    _pagination,
+    filters,
+    _sorter,
+    extra
+  ) => {
+    let queryParams: TQueryParams[] = [];
+    if (extra.action == "filter") {
+      filters?.name?.map((val) =>
+        queryParams.push({ name: "name", value: val })
+      );
+      filters?.year?.map((val) =>
+        queryParams.push({ name: "year", value: val })
+      );
+      setParams(queryParams);
+    }
+  };
   return (
-    <Table loading={isLoading} columns={columns} dataSource={data?.data} />
+    <Table
+      loading={isLoading || isFetching}
+      columns={columns}
+      dataSource={data?.data}
+      onChange={onChange}
+    />
   );
 };
