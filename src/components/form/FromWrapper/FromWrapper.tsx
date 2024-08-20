@@ -1,4 +1,4 @@
-import { Form } from "antd";
+import { Col, Form, Row } from "antd";
 import React, { ReactNode } from "react";
 import {
   Controller,
@@ -31,11 +31,20 @@ export const FromWrapper: React.FC<TForm> = ({
 
   const methods = useForm(formConfig);
 
+  const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+    onSubmit(data);
+    methods.reset();
+  };
+
   return (
-    <FormProvider {...methods}>
-      <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>
-        {children}
-      </Form>
-    </FormProvider>
+    <Row>
+      <Col span={12}>
+        <FormProvider {...methods}>
+          <Form layout="vertical" onFinish={methods.handleSubmit(handleSubmit)}>
+            {children}
+          </Form>
+        </FormProvider>
+      </Col>
+    </Row>
   );
 };
