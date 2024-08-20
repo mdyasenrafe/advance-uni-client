@@ -7,6 +7,8 @@ import {
 } from "../../../../components/form";
 import { Button, Col, Flex } from "antd";
 import { monthOptions } from "../../../../constants/global";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { academicSemesterSchema } from "../../../../schemas/academicManagement.schema";
 
 export const semesterOptions = [
   { value: "01", label: "Autumn" },
@@ -34,7 +36,10 @@ export const CreateAcademicSemester = () => {
   return (
     <Flex justify="center" align="center">
       <Col span={6}>
-        <FromWrapper onSubmit={onSubmit}>
+        <FromWrapper
+          onSubmit={onSubmit}
+          resolver={zodResolver(academicSemesterSchema)}
+        >
           <FormSelect name="name" label="Name" options={semesterOptions} />
           <FormSelect name="year" label="Year" options={yearOptions} />
           <FormSelect
