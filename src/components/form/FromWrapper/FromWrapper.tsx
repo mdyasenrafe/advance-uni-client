@@ -1,3 +1,4 @@
+import { Form } from "antd";
 import React, { ReactNode } from "react";
 import {
   Controller,
@@ -17,7 +18,9 @@ export const FromWrapper: React.FC<TForm> = ({ onSubmit, children }) => {
   const methods = useForm();
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
+      <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>
+        {children}
+      </Form>
     </FormProvider>
   );
 };
