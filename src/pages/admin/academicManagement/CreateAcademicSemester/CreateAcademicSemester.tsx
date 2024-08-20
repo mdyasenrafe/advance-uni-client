@@ -6,6 +6,7 @@ import {
   FormSelect,
 } from "../../../../components/form";
 import { Button, Col, Flex } from "antd";
+import { monthOptions } from "../../../../constants/global";
 
 export const semesterOptions = [
   { value: "01", label: "Autumn" },
@@ -23,12 +24,12 @@ const yearOptions = Array.from({ length: 5 }).map((number, index) => {
 
 export const CreateAcademicSemester = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const name = semesterOptions[Number(data.name - 1)];
+    const name = semesterOptions[Number(data?.name - 1)];
     const semesterData = {
-      name: name.label,
-      code: name.value,
+      name: name?.label,
+      code: name?.value,
     };
-    console.log(semesterData);
+    console.log(data);
   };
   return (
     <Flex justify="center" align="center">
@@ -36,6 +37,13 @@ export const CreateAcademicSemester = () => {
         <FromWrapper onSubmit={onSubmit}>
           <FormSelect name="name" label="Name" options={semesterOptions} />
           <FormSelect name="year" label="Year" options={yearOptions} />
+          <FormSelect
+            name="startMonth"
+            label="Start Month"
+            options={monthOptions}
+          />
+
+          <FormSelect name="endMonth" label="endMonth" options={monthOptions} />
           <Button htmlType="submit">Submit</Button>
         </FromWrapper>
       </Col>
