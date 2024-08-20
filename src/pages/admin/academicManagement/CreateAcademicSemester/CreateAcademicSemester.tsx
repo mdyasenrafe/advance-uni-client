@@ -9,6 +9,9 @@ import { Button, Col, Flex } from "antd";
 import { monthOptions } from "../../../../constants/global";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { academicSemesterSchema } from "../../../../schemas/academicManagement.schema";
+import { useAddAcademicSemesterMutation } from "../../../../redux/features/admin/academicManagement.api";
+import { toast } from "sonner";
+import { TAcademicManagementResponse } from "../../../../redux/features/admin/types";
 
 export const semesterOptions = [
   { value: "01", label: "Autumn" },
@@ -25,13 +28,25 @@ const yearOptions = Array.from({ length: 5 }).map((number, index) => {
 });
 
 export const CreateAcademicSemester = () => {
+  const [addAcademicSemester, { isLoading }] = useAddAcademicSemesterMutation();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Creating...");
     const name = semesterOptions[Number(data?.name - 1)];
-    const semesterData = {
-      name: name?.label,
-      code: name?.value,
-    };
-    console.log(data);
+    try {
+      const semesterData = {
+        name: name?.label,
+        code: name?.value,
+        year: data.year,
+        startMonth: data.startMonth,
+        endMonth: data.endMonth,
+      };
+      const res = (await addAcademicSemester(
+        semesterData
+      ).unwrap()) as TAcademicManagementResponse;
+      toast.success("Semester created", { id: toastId });
+    } catch (err: any) {
+      toast.error(err?.data?.message, { id: toastId });
+    }
   };
   return (
     <Flex justify="center" align="center">
@@ -48,7 +63,11 @@ export const CreateAcademicSemester = () => {
             options={monthOptions}
           />
 
-          <FormSelect name="endMonth" label="endMonth" options={monthOptions} />
+          <FormSelect
+            name="endMonth"
+            label="End Month"
+            options={monthOptions}
+          />
           <Button htmlType="submit">Submit</Button>
         </FromWrapper>
       </Col>
