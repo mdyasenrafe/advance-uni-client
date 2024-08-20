@@ -1,12 +1,10 @@
-export type TError = {
-  data: {
-    message: string;
-    stack: string;
-    success: boolean;
-  };
-};
-
-export type TAcademicManagementResponse = {
-  data?: any;
-  error: TError;
+export type TAcademicSemester = {
+  _id: string;
+  name: string;
+  year: string;
+  code: string;
+  startMonth: string;
+  endMonth: string;
+  createdAt: string;
+  updatedAt: string;
 };
