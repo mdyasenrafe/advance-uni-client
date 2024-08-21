@@ -2,7 +2,12 @@ import React from "react";
 import { FormInput, FromWrapper } from "../../../components/form";
 import { Button, Col, Divider, Row } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { ContactInfoForm, PersonalInfoForm } from "./components";
+import {
+  ContactInfoForm,
+  GurardinForm,
+  LocalGurardinForm,
+  PersonalInfoForm,
+} from "./components";
 
 const studentDummyData = {
   password: "student123",
@@ -50,6 +55,8 @@ export const CreateStudent = () => {
         <FromWrapper onSubmit={handleSubmit}>
           <PersonalInfoForm />
           <ContactInfoForm />
+          <GurardinForm />
+          <LocalGurardinForm />
           <Button htmlType="submit">Submit</Button>
         </FromWrapper>
       </Col>
