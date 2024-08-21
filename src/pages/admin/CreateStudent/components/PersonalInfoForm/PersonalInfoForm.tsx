@@ -1,6 +1,10 @@
 import { Col, Divider, Row } from "antd";
 import React from "react";
-import { FormInput, FormSelect } from "../../../../../components/form";
+import {
+  FormDatePicker,
+  FormInput,
+  FormSelect,
+} from "../../../../../components/form";
 import {
   bloodGroupOptions,
   genderOptions,
@@ -24,7 +28,7 @@ export const PersonalInfoForm = () => {
           <FormSelect options={genderOptions} name="gender" label="Gender" />
         </Col>
         <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-          <FormInput type="text" name="dateOfBirth" label="Date of Birth" />
+          <FormDatePicker name="dateOfBirth" label="Date of Birth" />
         </Col>
         <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
           <FormSelect

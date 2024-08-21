@@ -45,6 +45,38 @@ const studentDummyData = {
   },
 };
 
+const studentDefaultValues = {
+  name: {
+    firstName: "Mr. Student2",
+    middleName: "Test",
+    lastName: "Good",
+  },
+  gender: "male",
+  email: "abcd@gmail.com",
+  contactNo: "123567",
+  emergencyContactNo: "987-654-3210",
+  bloogGroup: "A+",
+  presentAddress: "123 Main St, Cityville",
+  permanentAddress: "456 Oak St, Townsville",
+  guardian: {
+    fatherName: "James Doe",
+    fatherOccupation: "Engineer",
+    fatherContactNo: "111-222-3333",
+    motherName: "Mary Doe",
+    motherOccupation: "Teacher",
+    motherContactNo: "444-555-6666",
+  },
+  localGuardian: {
+    name: "Alice Johnson",
+    occupation: "Doctor",
+    contactNo: "777-888-9999",
+    address: "789 Pine St, Villageton",
+  },
+  admissionSemester: "66871866c2396621da97f7a5",
+  academicDepartment: "656701a9adaebc55db21bde8",
+  profileImg: "path/to/profile/image.jpg",
+};
+
 export const CreateStudent = () => {
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
@@ -52,7 +84,10 @@ export const CreateStudent = () => {
   return (
     <Row>
       <Col span={24}>
-        <FromWrapper onSubmit={handleSubmit}>
+        <FromWrapper
+          onSubmit={handleSubmit}
+          defaultValues={studentDefaultValues}
+        >
           <PersonalInfoForm />
           <ContactInfoForm />
           <GurardinForm />

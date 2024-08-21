@@ -9,6 +9,7 @@ import {
 
 type TFormConfig = {
   resolver?: any;
+  defaultValues?: Record<string, any>;
 };
 
 type TForm = {
@@ -20,11 +21,16 @@ export const FromWrapper: React.FC<TForm> = ({
   onSubmit,
   children,
   resolver,
+  defaultValues,
 }) => {
   const formConfig: TFormConfig = {};
 
   if (resolver) {
     formConfig["resolver"] = resolver;
+  }
+
+  if (defaultValues) {
+    formConfig["defaultValues"] = defaultValues;
   }
 
   const methods = useForm(formConfig);
