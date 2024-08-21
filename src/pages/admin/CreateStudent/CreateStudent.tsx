@@ -1,8 +1,9 @@
 import React from "react";
-import { FormInput, FromWrapper } from "../../../components/form";
-import { Button, Col, Divider, Row } from "antd";
+import { FromWrapper } from "../../../components/form";
+import { Button, Col, Row } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import {
+  AcademicInfoForm,
   ContactInfoForm,
   GurardinForm,
   LocalGurardinForm,
@@ -72,7 +73,7 @@ const studentDefaultValues = {
     contactNo: "777-888-9999",
     address: "789 Pine St, Villageton",
   },
-  admissionSemester: "66871866c2396621da97f7a5",
+  // admissionSemester: "66871866c2396621da97f7a5",
   academicDepartment: "656701a9adaebc55db21bde8",
   profileImg: "path/to/profile/image.jpg",
 };
@@ -92,6 +93,7 @@ export const CreateStudent = () => {
           <ContactInfoForm />
           <GurardinForm />
           <LocalGurardinForm />
+          <AcademicInfoForm />
           <Button htmlType="submit">Submit</Button>
         </FromWrapper>
       </Col>
