@@ -3,6 +3,7 @@ import {
   CreateFaculty,
   CreateStudent,
   Dashboard,
+  Students,
 } from "../pages/admin";
 import {
   AcademicDepartment,
@@ -36,6 +37,11 @@ export const adminPaths = [
         name: "Create Student",
         path: "create-student",
         element: <CreateStudent />,
+      },
+      {
+        name: "Students",
+        path: "students",
+        element: <Students />,
       },
     ],
   },
