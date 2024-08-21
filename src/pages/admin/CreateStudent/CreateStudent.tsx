@@ -2,7 +2,7 @@ import React from "react";
 import { FormInput, FromWrapper } from "../../../components/form";
 import { Button, Col, Divider, Row } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { PersonalInfoForm } from "./components";
+import { ContactInfoForm, PersonalInfoForm } from "./components";
 
 const studentDummyData = {
   password: "student123",
@@ -49,6 +49,7 @@ export const CreateStudent = () => {
       <Col span={24}>
         <FromWrapper onSubmit={handleSubmit}>
           <PersonalInfoForm />
+          <ContactInfoForm />
           <Button htmlType="submit">Submit</Button>
         </FromWrapper>
       </Col>

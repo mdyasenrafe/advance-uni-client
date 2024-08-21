@@ -9,6 +9,7 @@ import {
 export const PersonalInfoForm = () => {
   return (
     <React.Fragment>
+      <Divider>Personal Info.</Divider>
       <Row gutter={8}>
         <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
           <FormInput type="text" name="name.firstName" label="First Name" />
