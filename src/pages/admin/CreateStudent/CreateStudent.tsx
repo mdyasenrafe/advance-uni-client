@@ -55,7 +55,7 @@ const studentDefaultValues = {
     lastName: "Good",
   },
   gender: "male",
-  email: "abcd+12@gmail.com",
+  email: "abcd+153@gmail.com",
   contactNo: "123567",
   emergencyContactNo: "987-654-3210",
   bloogGroup: "A+",
@@ -94,6 +94,8 @@ export const CreateStudent = () => {
         student: data,
       };
       formData.append("data", JSON.stringify(studentData));
+      formData.append("file", data.image);
+      console.log(Object.fromEntries(formData));
       const res = await addStudent(formData).unwrap();
       toast.success("Student created", { id: toastId });
     } catch (err: any) {

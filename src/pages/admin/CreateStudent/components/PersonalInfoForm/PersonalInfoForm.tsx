@@ -1,4 +1,4 @@
-import { Col, Divider, Row } from "antd";
+import { Col, Divider, Form, Input, Row } from "antd";
 import React from "react";
 import {
   FormDatePicker,
@@ -9,6 +9,7 @@ import {
   bloodGroupOptions,
   genderOptions,
 } from "../../../../../constants/global";
+import { Controller } from "react-hook-form";
 
 export const PersonalInfoForm = () => {
   return (
@@ -35,6 +36,21 @@ export const PersonalInfoForm = () => {
             options={bloodGroupOptions}
             name="bloogGroup"
             label="Blood group"
+          />
+        </Col>
+        <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+          <Controller
+            name="image"
+            render={({ field: { onChange, value, ...field } }) => (
+              <Form.Item label="Picture">
+                <Input
+                  type="file"
+                  value={value?.fileName}
+                  {...field}
+                  onChange={(e) => onChange(e.target.files?.[0])}
+                />
+              </Form.Item>
+            )}
           />
         </Col>
       </Row>
