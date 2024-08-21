@@ -1,7 +1,8 @@
 import React from "react";
 import { FormInput, FromWrapper } from "../../../components/form";
-import { Button } from "antd";
+import { Button, Col, Divider, Row } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import { PersonalInfoForm } from "./components";
 
 const studentDummyData = {
   password: "student123",
@@ -44,9 +45,13 @@ export const CreateStudent = () => {
     console.log(data);
   };
   return (
-    <FromWrapper onSubmit={handleSubmit}>
-      <FormInput type="text" name="name" label="Name" />
-      <Button htmlType="submit">Submit</Button>
-    </FromWrapper>
+    <Row>
+      <Col span={24}>
+        <FromWrapper onSubmit={handleSubmit}>
+          <PersonalInfoForm />
+          <Button htmlType="submit">Submit</Button>
+        </FromWrapper>
+      </Col>
+    </Row>
   );
 };
