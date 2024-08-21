@@ -9,6 +9,8 @@ import {
   LocalGurardinForm,
   PersonalInfoForm,
 } from "./components";
+import { useAddStudentMutation } from "../../../redux/features/admin/userManagement.api";
+import { toast } from "sonner";
 
 const studentDummyData = {
   password: "student123",
@@ -53,7 +55,7 @@ const studentDefaultValues = {
     lastName: "Good",
   },
   gender: "male",
-  email: "abcd@gmail.com",
+  email: "abcd+12@gmail.com",
   contactNo: "123567",
   emergencyContactNo: "987-654-3210",
   bloogGroup: "A+",
@@ -74,13 +76,29 @@ const studentDefaultValues = {
     address: "789 Pine St, Villageton",
   },
   // admissionSemester: "66871866c2396621da97f7a5",
-  academicDepartment: "656701a9adaebc55db21bde8",
+  academicDepartment: "",
   profileImg: "path/to/profile/image.jpg",
 };
 
 export const CreateStudent = () => {
-  const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+  // api hooks
+  const [addStudent, { isLoading }] = useAddStudentMutation();
+
+  const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Creating...");
+    try {
+      const formData = new FormData();
+
+      const studentData = {
+        password: "student123",
+        student: data,
+      };
+      formData.append("data", JSON.stringify(studentData));
+      const res = await addStudent(formData).unwrap();
+      toast.success("Student created", { id: toastId });
+    } catch (err: any) {
+      toast.error(err?.data?.message, { id: toastId });
+    }
   };
   return (
     <Row>

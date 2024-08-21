@@ -1,6 +1,9 @@
 import { Col, Divider, Row } from "antd";
 import React, { useMemo } from "react";
-import { useGetAllAcademicSemesterQuery } from "../../../../../redux/features/admin/academicManagement.api";
+import {
+  useGetAcademicDepartmentsQuery,
+  useGetAllAcademicSemesterQuery,
+} from "../../../../../redux/features/admin/academicManagement.api";
 import { FormSelect } from "../../../../../components/form";
 
 type SelectOptions = { value: string; label: string; disabled?: boolean }[];
@@ -8,6 +11,8 @@ type SelectOptions = { value: string; label: string; disabled?: boolean }[];
 export const AcademicInfoForm: React.FC = () => {
   const { data: semesterData, isLoading: isSemesterLoading } =
     useGetAllAcademicSemesterQuery([]);
+  const { data: academicData, isLoading: isDepartmentLoading } =
+    useGetAcademicDepartmentsQuery([]);
 
   const semesterOptions: SelectOptions = useMemo(
     () =>
@@ -16,6 +21,14 @@ export const AcademicInfoForm: React.FC = () => {
         label: `${semester.name} ${semester.year}`,
       })) || [],
     [semesterData]
+  );
+  const departmentOptions: SelectOptions = useMemo(
+    () =>
+      academicData?.data?.map((academic) => ({
+        value: academic._id,
+        label: `${academic.name}`,
+      })) || [],
+    [academicData]
   );
 
   return (
@@ -30,7 +43,7 @@ export const AcademicInfoForm: React.FC = () => {
             disabled={isSemesterLoading}
           />
         </Col>
-        {/* 
+
         <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
           <FormSelect
             options={departmentOptions}
@@ -38,8 +51,7 @@ export const AcademicInfoForm: React.FC = () => {
             name="academicDepartment"
             label="Admission Department"
           />
-        </Col> 
-        */}
+        </Col>
       </Row>
     </>
   );
