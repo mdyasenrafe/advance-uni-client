@@ -3,6 +3,7 @@ import {
   CreateFaculty,
   CreateStudent,
   Dashboard,
+  StudentDetails,
   Students,
 } from "../pages/admin";
 import {
@@ -42,6 +43,10 @@ export const adminPaths = [
         name: "Students",
         path: "students",
         element: <Students />,
+      },
+      {
+        path: "student-details/:studentId",
+        element: <StudentDetails />,
       },
     ],
   },

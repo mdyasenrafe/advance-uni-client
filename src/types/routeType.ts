@@ -5,13 +5,15 @@ export type TRoute = {
 
 export type TAdminPath = {
   name: string;
-  path?: string;
+  path: string;
   element?: React.ReactNode;
   children?: TAdminPath[];
 };
 
-export type TAdminSideBar = {
-  key: string;
-  label: React.ReactNode;
-  children?: TAdminSideBar[];
-};
+export type TAdminSideBar =
+  | {
+      key: string;
+      label: React.ReactNode;
+      children?: TAdminSideBar[];
+    }
+  | undefined;

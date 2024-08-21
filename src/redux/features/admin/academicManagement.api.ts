@@ -7,7 +7,6 @@ const academicManagementApi = baseApi.injectEndpoints({
     getAllAcademicSemester: builder.query({
       query: (args: TQueryParams[]) => {
         const params = new URLSearchParams();
-        console.log(params);
         if (args) {
           args.forEach((element) => {
             params.append(element?.name, String(element?.value));

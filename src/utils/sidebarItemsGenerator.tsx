@@ -14,19 +14,21 @@ export const sidebarItemsGenerator = (
     }
     if (item.children) {
       acc.push({
-        key: item.name,
-        label: item.name,
+        key: item?.name || "",
+        label: item?.name,
         children: item.children.map((child) => {
-          return {
-            key: child.path as string,
-            label: (
-              <NavLink to={`/${role}/${child.path}`}>{child.name}</NavLink>
-            ),
-          };
+          if (child.name) {
+            return {
+              key: child.path as string,
+              label: (
+                <NavLink to={`/${role}/${child.path}`}>{child.name}</NavLink>
+              ),
+            };
+          }
         }),
       });
     }
-
+    console.log(acc);
     return acc;
   }, []);
 };
