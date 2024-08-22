@@ -7,6 +7,11 @@ import {
   Students,
 } from "../pages/admin";
 import {
+  Courses,
+  RegisteredSemesters,
+  SemesterRegistration,
+} from "../pages/admin/CourseManagement";
+import {
   AcademicDepartment,
   AcademicFaculty,
   CreateAcademicDepartment,
@@ -82,6 +87,27 @@ export const adminPaths = [
         name: "Academic Department",
         path: "academic-department",
         element: <AcademicDepartment />,
+      },
+    ],
+  },
+  {
+    name: "Course Management",
+    children: [
+      {
+        name: "Semester Registration",
+        path: "semester-registration",
+        element: <SemesterRegistration />,
+      },
+      {
+        name: "Registered Semesters",
+        path: "registered-semesters",
+        element: <RegisteredSemesters />,
+      },
+
+      {
+        name: "Courses",
+        path: "courses",
+        element: <Courses />,
       },
     ],
   },
