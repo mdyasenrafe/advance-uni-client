@@ -28,7 +28,6 @@ export const sidebarItemsGenerator = (
         }),
       });
     }
-    console.log(acc);
     return acc;
   }, []);
 };

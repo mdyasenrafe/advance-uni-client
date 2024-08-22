@@ -16,8 +16,12 @@ import {
   TQueryParams,
   TSemester,
 } from "../../../../redux/features/admin/types";
-import { useGetRegisteredSemestersQuery } from "../../../../redux/features/admin/courseManagement.api";
+import {
+  useGetRegisteredSemestersQuery,
+  useUpdateSemesterRegisterMutation,
+} from "../../../../redux/features/admin/courseManagement.api";
 import moment from "moment";
+import { toast } from "sonner";
 
 export type TTableData = Pick<
   TSemester,
@@ -42,12 +46,30 @@ const items = [
 export const RegisteredSemesters = () => {
   // states
   const [params, setParams] = useState<TQueryParams[]>([]);
+  const [selectedId, setSelectedId] = useState("");
+  // api hooks
   const { data, isLoading, isFetching } =
     useGetRegisteredSemestersQuery(params);
+  const [updateSemester] = useUpdateSemesterRegisterMutation();
 
-  const handleMenuClick: MenuProps["onClick"] = (e) => {
-    message.info("Click on menu item.");
-    console.log("click", e.key);
+  const handleMenuClick: MenuProps["onClick"] = async (e) => {
+    const toastId = toast.loading("Updating...");
+    if (selectedId) {
+      try {
+        const data = {
+          id: selectedId,
+          body: {
+            status: e.key,
+          },
+        };
+        const res = await updateSemester(data).unwrap();
+        const toastId = toast.success("Updated...");
+      } catch (err: any) {
+        toast.error(err?.data?.message, { id: toastId });
+      }
+    } else {
+      toast.error("something went wrong pls try again", { id: toastId });
+    }
   };
 
   const menuProps = {
@@ -99,12 +121,10 @@ export const RegisteredSemesters = () => {
     {
       title: "Action",
       key: "x",
-      render: () => {
+      render: (item) => {
         return (
-          <Dropdown menu={menuProps}>
-            <Button>
-              <Space>Update</Space>
-            </Button>
+          <Dropdown menu={menuProps} trigger={["click"]}>
+            <Button onClick={() => setSelectedId(item?._id)}>Update</Button>
           </Dropdown>
         );
       },
