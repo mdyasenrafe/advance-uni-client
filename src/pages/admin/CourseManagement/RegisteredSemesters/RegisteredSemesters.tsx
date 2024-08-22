@@ -7,9 +7,7 @@ import {
   Space,
   Table,
   TableColumnsType,
-  TableProps,
   Tag,
-  message,
 } from "antd";
 import {
   TAcademicSemester,
@@ -28,106 +26,91 @@ export type TTableData = Pick<
   "_id" | "startDate" | "endDate" | "status" | "academicSemester"
 >;
 
-const items = [
-  {
-    label: "Upcoming",
-    key: "UPCOMING",
-  },
-  {
-    label: "Ongoing",
-    key: "ONGOING",
-  },
-  {
-    label: "Ended",
-    key: "ENDED",
-  },
+const semesterStatusOptions = [
+  { label: "Upcoming", key: "UPCOMING" },
+  { label: "Ongoing", key: "ONGOING" },
+  { label: "Ended", key: "ENDED" },
 ];
 
 export const RegisteredSemesters = () => {
-  // states
-  const [params, setParams] = useState<TQueryParams[]>([]);
-  const [selectedId, setSelectedId] = useState("");
-  // api hooks
-  const { data, isLoading, isFetching } =
-    useGetRegisteredSemestersQuery(params);
-  const [updateSemester] = useUpdateSemesterRegisterMutation();
+  // State management
+  const [queryParams, setQueryParams] = useState<TQueryParams[]>([]);
+  const [selectedSemesterId, setSelectedSemesterId] = useState<string>("");
 
-  const handleMenuClick: MenuProps["onClick"] = async (e) => {
-    const toastId = toast.loading("Updating...");
-    if (selectedId) {
+  // API hooks
+  const {
+    data: semesterData,
+    isLoading,
+    isFetching,
+  } = useGetRegisteredSemestersQuery(queryParams);
+  const [updateSemesterStatus] = useUpdateSemesterRegisterMutation();
+
+  // Handle status update from the dropdown menu
+  const handleStatusUpdate: MenuProps["onClick"] = async ({ key }) => {
+    const loadingToastId = toast.loading("Updating...");
+
+    if (selectedSemesterId) {
       try {
-        const data = {
-          id: selectedId,
-          body: {
-            status: e.key,
-          },
-        };
-        const res = await updateSemester(data).unwrap();
-        const toastId = toast.success("Updated...");
-      } catch (err: any) {
-        toast.error(err?.data?.message, { id: toastId });
+        await updateSemesterStatus({
+          id: selectedSemesterId,
+          body: { status: key },
+        }).unwrap();
+        toast.success("Semester status updated successfully", {
+          id: loadingToastId,
+        });
+      } catch (error: any) {
+        toast.error(error?.data?.message || "Failed to update status", {
+          id: loadingToastId,
+        });
       }
     } else {
-      toast.error("something went wrong pls try again", { id: toastId });
+      toast.error("No semester selected. Please try again.", {
+        id: loadingToastId,
+      });
     }
   };
 
-  const menuProps = {
-    items,
-    onClick: handleMenuClick,
+  const statusMenuProps = {
+    items: semesterStatusOptions,
+    onClick: handleStatusUpdate,
   };
 
   const columns: TableColumnsType<TTableData> = [
     {
-      title: "Name",
-      key: "name",
+      title: "Semester",
+      key: "academicSemester",
       dataIndex: "academicSemester",
-      render: (academicSemester: TAcademicSemester) => {
-        return `${academicSemester.name} ${academicSemester.year}`;
-      },
+      render: (academicSemester: TAcademicSemester) =>
+        `${academicSemester.name} ${academicSemester.year}`,
     },
     {
       title: "Status",
       key: "status",
       dataIndex: "status",
-      render: (item) => {
-        return <Tag>{item}</Tag>;
-      },
+      render: (status) => <Tag>{status}</Tag>,
     },
     {
       title: "Start Date",
       key: "startDate",
       dataIndex: "startDate",
-      render: (item) => {
-        return (
-          <div>
-            <p>{moment(new Date(item)).format("MMMM")}</p>
-          </div>
-        );
-      },
+      render: (startDate) => moment(startDate).format("MMMM"),
     },
     {
       title: "End Date",
       key: "endDate",
       dataIndex: "endDate",
-      render: (item) => {
-        return (
-          <div>
-            <p>{moment(new Date(item)).format("MMMM")}</p>
-          </div>
-        );
-      },
+      render: (endDate) => moment(endDate).format("MMMM"),
     },
     {
-      title: "Action",
-      key: "x",
-      render: (item) => {
-        return (
-          <Dropdown menu={menuProps} trigger={["click"]}>
-            <Button onClick={() => setSelectedId(item?._id)}>Update</Button>
-          </Dropdown>
-        );
-      },
+      title: "Actions",
+      key: "actions",
+      render: (semester: TTableData) => (
+        <Dropdown menu={statusMenuProps} trigger={["click"]}>
+          <Button onClick={() => setSelectedSemesterId(semester._id)}>
+            <Space>Update</Space>
+          </Button>
+        </Dropdown>
+      ),
     },
   ];
 
@@ -135,7 +118,8 @@ export const RegisteredSemesters = () => {
     <Table
       loading={isLoading || isFetching}
       columns={columns}
-      dataSource={data?.data}
+      dataSource={semesterData?.data}
+      rowKey="_id"
     />
   );
 };
