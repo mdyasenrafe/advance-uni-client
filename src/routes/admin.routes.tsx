@@ -103,7 +103,6 @@ export const adminPaths = [
         path: "registered-semesters",
         element: <RegisteredSemesters />,
       },
-
       {
         name: "Courses",
         path: "courses",

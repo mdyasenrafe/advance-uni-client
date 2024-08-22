@@ -5,8 +5,7 @@ import {
   useGetAllAcademicSemesterQuery,
 } from "../../../../../redux/features/admin/academicManagement.api";
 import { FormSelect } from "../../../../../components/form";
-
-type SelectOptions = { value: string; label: string; disabled?: boolean }[];
+import { SelectOptions } from "../../../../../types";
 
 export const AcademicInfoForm: React.FC = () => {
   const { data: semesterData, isLoading: isSemesterLoading } =

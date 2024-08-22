@@ -24,3 +24,9 @@ export type TMeta = {
 };
 
 export type TResponseRedux<T> = TResponse<T> & BaseQueryApi;
+
+export type SelectOptions = {
+  value: string;
+  label: string;
+  disabled?: boolean;
+}[];
