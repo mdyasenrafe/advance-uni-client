@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Space, Table, TableColumnsType } from "antd";
 import { useGetCoursesQuery } from "../../../../redux/features/admin/courseManagement.api";
 import { TCourse, TQueryParams } from "../../../../redux/features/admin/types";
+import { useModal } from "../../../../hooks";
 
 type TTableData = Pick<TCourse, "title" | "_id" | "code">;
 
@@ -10,6 +11,8 @@ export const Courses = () => {
   const [page, setPage] = useState(1);
   const [params, setParams] = useState<TQueryParams[]>([]);
   const { data, isLoading, isFetching } = useGetCoursesQuery(params);
+  // extra hooks
+  const { openModal } = useModal();
 
   const columns: TableColumnsType<TTableData> = [
     {
@@ -27,9 +30,9 @@ export const Courses = () => {
       key: "x",
       render: (item) => {
         return (
-          <Space>
-            <Button>Assign Faculty</Button>
-          </Space>
+          <div>
+            <Button onClick={openModal}>Assign Faculty</Button>
+          </div>
         );
       },
     },
