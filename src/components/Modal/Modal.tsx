@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Modal as RModal, Button } from "antd";
+import { Modal as RModal } from "antd";
 
 // Define the props interface for strong typing
 interface ModalProps {
@@ -24,6 +24,7 @@ export const Modal: React.FC<ModalProps> = ({
         open={isModalOpen}
         onOk={handleOk}
         onCancel={closeModal}
+        footer={null}
       >
         {children}
       </RModal>

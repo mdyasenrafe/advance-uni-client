@@ -3,6 +3,8 @@ import { Button, Space, Table, TableColumnsType } from "antd";
 import { useGetCoursesQuery } from "../../../../redux/features/admin/courseManagement.api";
 import { TCourse, TQueryParams } from "../../../../redux/features/admin/types";
 import { useModal } from "../../../../hooks";
+import { AssignFacultyModal } from "./components";
+import { Modal } from "../../../../components";
 
 type TTableData = Pick<TCourse, "title" | "_id" | "code">;
 
@@ -12,7 +14,7 @@ export const Courses = () => {
   const [params, setParams] = useState<TQueryParams[]>([]);
   const { data, isLoading, isFetching } = useGetCoursesQuery(params);
   // extra hooks
-  const { openModal } = useModal();
+  const { openModal, isModalOpen, closeModal } = useModal();
 
   const columns: TableColumnsType<TTableData> = [
     {
@@ -28,12 +30,8 @@ export const Courses = () => {
     {
       title: "Action",
       key: "x",
-      render: (item) => {
-        return (
-          <div>
-            <Button onClick={openModal}>Assign Faculty</Button>
-          </div>
-        );
+      render: (item: TCourse) => {
+        return <AssignFacultyModal courseId={item?._id} />;
       },
     },
   ];
