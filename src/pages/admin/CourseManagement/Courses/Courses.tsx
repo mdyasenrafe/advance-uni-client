@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Pagination, Space, Table, TableColumnsType } from "antd";
+import { Button, Space, Table, TableColumnsType } from "antd";
 import { useGetCoursesQuery } from "../../../../redux/features/admin/courseManagement.api";
 import { TCourse, TQueryParams } from "../../../../redux/features/admin/types";
 
