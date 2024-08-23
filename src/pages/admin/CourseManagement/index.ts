@@ -1,4 +1,4 @@
 export * from "./Courses";
 export * from "./SemesterRegistration";
 export * from "./RegisteredSemesters";
-export * from "./CreateCourses";
+export * from "./CreateCourse";

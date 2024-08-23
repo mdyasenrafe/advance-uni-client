@@ -7,6 +7,7 @@ type FormSelectProps = {
   name: string;
   options: { value: string; label: string; disabled?: boolean }[];
   disabled?: boolean;
+  mode?: "multiple" | undefined;
 };
 
 export const FormSelect: React.FC<FormSelectProps> = ({
@@ -14,6 +15,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
   name,
   options,
   disabled,
+  mode,
 }) => {
   return (
     <Controller
@@ -21,6 +23,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
       render={({ field, fieldState: { error } }) => (
         <Form.Item label={label}>
           <Select
+            mode={mode}
             style={{ width: "100%" }}
             {...field}
             options={options}

@@ -8,6 +8,7 @@ import {
 } from "../pages/admin";
 import {
   Courses,
+  CreateCourse,
   RegisteredSemesters,
   SemesterRegistration,
 } from "../pages/admin/CourseManagement";
@@ -104,13 +105,13 @@ export const adminPaths = [
         element: <RegisteredSemesters />,
       },
       {
-        name: "Courses",
-        path: "courses",
-        element: <Courses />,
-      },
-      {
         name: "Create Course",
         path: "create-course",
+        element: <CreateCourse />,
+      },
+      {
+        name: "Courses",
+        path: "courses",
         element: <Courses />,
       },
     ],
