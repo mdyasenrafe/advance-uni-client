@@ -5,12 +5,14 @@ import { Modal as RModal } from "antd";
 interface ModalProps {
   isModalOpen: boolean;
   closeModal: () => void;
+  title: string;
   children: React.ReactNode;
 }
 
 export const Modal: React.FC<ModalProps> = ({
   isModalOpen,
   closeModal,
+  title,
   children,
 }) => {
   const handleOk = useCallback(() => {
@@ -20,7 +22,7 @@ export const Modal: React.FC<ModalProps> = ({
   return (
     <>
       <RModal
-        title="Basic Modal"
+        title={title}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={closeModal}
